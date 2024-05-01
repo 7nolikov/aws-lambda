@@ -3,3 +3,6 @@
 *.jar
 .idea
 .target
+*.syndicate
+logs/
+*.syndicate-config-*/
