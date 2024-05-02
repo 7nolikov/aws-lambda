@@ -22,7 +22,7 @@ public class HelloWorld
   public APIGatewayProxyResponseEvent handleRequest(
       APIGatewayProxyRequestEvent request, Context context) {
 
-    context.getLogger().log(request.toString());
+    context.getLogger().log("request:" + request.toString());
 
     if (request.getPath().equals("/hello")) {
       return new APIGatewayProxyResponseEvent().withBody("Hello from Lambda").withStatusCode(200);
