@@ -26,14 +26,14 @@ public class HelloWorld implements RequestHandler<APIGatewayV2HTTPEvent, APIGate
 
     if (rawPath.equals("/hello")) {
       return APIGatewayV2HTTPResponse .builder()
-          .withBody("'statusCode': 200, 'message': 'Hello from Lambda'")
+          .withBody("{'statusCode': 200, 'message': 'Hello from Lambda'}")
           .withStatusCode(200)
           .build();
     } else {
       return APIGatewayV2HTTPResponse.builder()
           .withBody(
               String.format(
-                  "'statusCode': 400, 'message': 'Bad request syntax or unsupported method. Request path: %s. HTTP method: %s'",
+                  "{'statusCode': 400, 'message': 'Bad request syntax or unsupported method. Request path: %s. HTTP method: %s'}",
                   rawPath, httpMethod))
           .withStatusCode(400)
           .build();
