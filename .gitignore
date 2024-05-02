@@ -2,7 +2,7 @@
 *.log
 *.jar
 .idea
-*.target
+*target
 *.syndicate
 logs/
 *.syndicate-config-*/
