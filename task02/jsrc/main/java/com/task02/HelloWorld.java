@@ -18,6 +18,17 @@ import com.syndicate.deployment.model.lambda.url.InvokeMode;
 @LambdaUrlConfig(authType = AuthType.NONE, invokeMode = InvokeMode.BUFFERED)
 public class HelloWorld implements RequestHandler<APIGatewayV2HTTPEvent, APIGatewayV2HTTPResponse> {
 
+  public static String response200 = "{"
+      + "         \"statusCode\": 200,"
+      + "         \"message\": \"Hello from Lambda\""
+      + "     }";
+  public static String response400(String rawPath, String httpMethod) {
+  return String.format("{\n"
+      + "   \"statusCode\":400,\n"
+      + "   \"message\":\"Bad request syntax or unsupported method. Request path: %s. HTTP method: %s\"\n"
+      + "}", rawPath, httpMethod);
+  }
+
   public APIGatewayV2HTTPResponse  handleRequest(APIGatewayV2HTTPEvent request, Context context) {
     context.getLogger().log("request:" + request.toString());
     String httpMethod = request.getRequestContext().getHttp().getMethod();
@@ -26,15 +37,12 @@ public class HelloWorld implements RequestHandler<APIGatewayV2HTTPEvent, APIGate
 
     if (rawPath.equals("/hello")) {
       return APIGatewayV2HTTPResponse .builder()
-          .withBody("{'statusCode': 200, 'message': 'Hello from Lambda'}")
+          .withBody(response200)
           .withStatusCode(200)
           .build();
     } else {
       return APIGatewayV2HTTPResponse.builder()
-          .withBody(
-              String.format(
-                  "{'statusCode': 400, 'message': 'Bad request syntax or unsupported method. Request path: %s. HTTP method: %s'}",
-                  rawPath, httpMethod))
+          .withBody(response400(rawPath, httpMethod))
           .withStatusCode(400)
           .build();
     }
