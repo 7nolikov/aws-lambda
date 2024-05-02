@@ -9,7 +9,6 @@ import com.syndicate.deployment.annotations.lambda.LambdaUrlConfig;
 import com.syndicate.deployment.model.RetentionSetting;
 import com.syndicate.deployment.model.lambda.url.AuthType;
 import com.syndicate.deployment.model.lambda.url.InvokeMode;
-import java.util.Map;
 
 @LambdaHandler(
     lambdaName = "hello_world",
@@ -27,14 +26,14 @@ public class HelloWorld implements RequestHandler<APIGatewayV2HTTPEvent, APIGate
 
     if (rawPath.equals("/hello")) {
       return APIGatewayV2HTTPResponse .builder()
-          .withBody("Hello from Lambda")
+          .withBody("'statusCode': 200, 'message': 'Hello from Lambda'")
           .withStatusCode(200)
           .build();
     } else {
       return APIGatewayV2HTTPResponse.builder()
           .withBody(
               String.format(
-                  "Bad request syntax or unsupported method. Request path: %s. HTTP method: %s",
+                  "'statusCode': 400, 'message': 'Bad request syntax or unsupported method. Request path: %s. HTTP method: %s'",
                   rawPath, httpMethod))
           .withStatusCode(400)
           .build();
